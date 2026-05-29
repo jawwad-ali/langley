@@ -53,8 +53,9 @@ class TestSafetyCoverage:
     def test_likely_safe_without_coverage_forces_abstain(
         self, make_snapshot: Callable[..., MarketSnapshot]
     ) -> None:
-        # Thin liquidity → cannot justify "safe" even if the citation is grounded.
-        snapshot = make_snapshot(liquidity_usd=100.0, age_hours=2.0, buys_24h=5, sells_24h=0)
+        # Liquidity above the rug floor but below the safe floor, and too new → cannot
+        # justify "safe", but also not a hard danger pattern, so the gate abstains.
+        snapshot = make_snapshot(liquidity_usd=5_000.0, age_hours=2.0, buys_24h=5, sells_24h=2)
         report = _report(Verdict.LIKELY_SAFE, evidence_field="liquidity_usd")
         gated = apply_gate(report, snapshot)
         assert gated.verdict == Verdict.ABSTAIN
@@ -62,6 +63,45 @@ class TestSafetyCoverage:
     def test_likely_safe_with_full_coverage_survives(
         self, make_snapshot: Callable[..., MarketSnapshot]
     ) -> None:
+        snapshot = make_snapshot(
+            liquidity_usd=500_000.0, age_hours=1000.0, buys_24h=900, sells_24h=800
+        )
+        report = _report(Verdict.LIKELY_SAFE, evidence_field="liquidity_usd")
+        gated = apply_gate(report, snapshot)
+        assert gated.verdict == Verdict.LIKELY_SAFE
+
+
+class TestDangerOverride:
+    def test_honeypot_pattern_forces_unsafe_even_if_agent_abstained(
+        self, make_snapshot: Callable[..., MarketSnapshot]
+    ) -> None:
+        # Many buys, zero sells → honeypot. Agent abstained; gate must escalate.
+        snapshot = make_snapshot(liquidity_usd=8_000.0, age_hours=20.0, buys_24h=137, sells_24h=0)
+        report = TokenRiskReport(
+            token_address="x",
+            verdict=Verdict.ABSTAIN,
+            confidence=0.5,
+            summary="unsure",
+            abstain_reason="not confident",
+            data_provider="dexscreener",
+        )
+        gated = apply_gate(report, snapshot)
+        assert gated.verdict == Verdict.LIKELY_UNSAFE
+        cited = {e.field for s in gated.signals for e in s.evidence}
+        assert {"buys_24h", "sells_24h"} <= cited
+
+    def test_rug_liquidity_forces_unsafe_even_if_agent_said_safe(
+        self, make_snapshot: Callable[..., MarketSnapshot]
+    ) -> None:
+        snapshot = make_snapshot(liquidity_usd=12.0)
+        report = _report(Verdict.LIKELY_SAFE, evidence_field="liquidity_usd")
+        gated = apply_gate(report, snapshot)
+        assert gated.verdict == Verdict.LIKELY_UNSAFE
+
+    def test_healthy_token_is_not_flagged(
+        self, make_snapshot: Callable[..., MarketSnapshot]
+    ) -> None:
+        # Two-sided trading + deep liquidity → no danger pattern, stays as-is.
         snapshot = make_snapshot(
             liquidity_usd=500_000.0, age_hours=1000.0, buys_24h=900, sells_24h=800
         )

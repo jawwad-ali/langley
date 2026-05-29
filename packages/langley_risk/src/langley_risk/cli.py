@@ -10,7 +10,7 @@ import argparse
 import asyncio
 import sys
 
-from langley_risk.config import get_settings
+from langley_risk.config import get_settings, load_env_file
 from langley_risk.domain.report import TokenRiskReport
 from langley_risk.errors import LangleyRiskError
 from langley_risk.observability.logging import configure_logging
@@ -55,6 +55,7 @@ async def _run(query: str, *, as_json: bool) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     """Console entrypoint. Returns a process exit code."""
+    load_env_file()
     args = _parse_args(sys.argv[1:] if argv is None else argv)
     settings = get_settings()
     configure_logging(level=settings.log_level, as_json=settings.log_json)

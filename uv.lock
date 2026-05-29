@@ -557,6 +557,7 @@ dependencies = [
     { name = "openai-agents" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
+    { name = "python-dotenv" },
     { name = "structlog" },
     { name = "tenacity" },
 ]
@@ -567,6 +568,7 @@ requires-dist = [
     { name = "openai-agents", specifier = ">=0.17" },
     { name = "pydantic", specifier = ">=2.7" },
     { name = "pydantic-settings", specifier = ">=2.2" },
+    { name = "python-dotenv", specifier = ">=1.0" },
     { name = "structlog", specifier = ">=24.1" },
     { name = "tenacity", specifier = ">=8.3" },
 ]

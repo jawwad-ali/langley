@@ -17,7 +17,7 @@ import os
 import sys
 from pathlib import Path
 
-from langley_risk.config import get_settings
+from langley_risk.config import get_settings, load_env_file
 from langley_risk.domain.enums import Verdict
 from langley_risk.domain.report import TokenRiskReport
 from langley_risk.evals.baseline import baseline_report
@@ -80,6 +80,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--dataset", type=Path, default=None, help="Override golden dataset path.")
     args = parser.parse_args(sys.argv[1:] if argv is None else argv)
 
+    load_env_file()
     if args.live and not os.environ.get("OPENAI_API_KEY"):
         print("error: --live requires OPENAI_API_KEY", file=sys.stderr)
         return 2

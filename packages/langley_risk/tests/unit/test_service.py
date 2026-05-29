@@ -73,8 +73,9 @@ class TestAnalyzeToken:
         make_snapshot: Callable[..., MarketSnapshot],
         settings: Settings,
     ) -> None:
-        # Thin token: agent says "likely_safe" but coverage rules can't justify it.
-        snapshot = make_snapshot(liquidity_usd=100.0, age_hours=2.0, buys_24h=5, sells_24h=1)
+        # Thin-but-not-rugged token: agent says "likely_safe" but coverage rules can't
+        # justify it (above the rug floor, below the safe floor, too new) → abstain.
+        snapshot = make_snapshot(liquidity_usd=5_000.0, age_hours=2.0, buys_24h=5, sells_24h=1)
         _patch_runner(monkeypatch, _safe_report(), fetch=True)
         report = await analyze_token("q", provider=_StubProvider(snapshot), settings=settings)
         assert report.verdict == Verdict.ABSTAIN

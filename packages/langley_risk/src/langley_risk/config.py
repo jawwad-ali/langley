@@ -9,10 +9,22 @@ from __future__ import annotations
 
 from functools import lru_cache
 
+from dotenv import load_dotenv
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from langley_risk.providers.base import ProviderName
+
+
+def load_env_file() -> None:
+    """Load a root ``.env`` into ``os.environ``.
+
+    pydantic-settings reads ``.env`` for our ``LANGLEY_RISK_*`` fields, but it does NOT
+    export keys into the process environment, and ``uv run`` doesn't auto-load ``.env``.
+    The OpenAI SDK reads ``OPENAI_API_KEY`` from ``os.environ`` directly, so process
+    entrypoints call this first to make a root ``.env`` work for both.
+    """
+    load_dotenv()
 
 
 class Settings(BaseSettings):
@@ -28,7 +40,7 @@ class Settings(BaseSettings):
     # --- LLM / agent ---
     model: str = "gpt-4o"
     temperature: float = Field(default=0.0, ge=0.0, le=2.0)
-    max_turns: int = Field(default=8, ge=1, le=20)
+    max_turns: int = Field(default=6, ge=1, le=20)
 
     # --- Data provider ---
     provider: ProviderName = ProviderName.DEXSCREENER
