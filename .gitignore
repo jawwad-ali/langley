@@ -1,0 +1,42 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# ---- uv ----
+# Lockfile IS committed (uv.lock); caches are not.
+.uv/
+
+# ---- Test / coverage / type caches ----
+.pytest_cache/
+.ruff_cache/
+.pyright/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# ---- Env / secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Node (future apps/web) ----
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# ---- Editors / OS ----
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

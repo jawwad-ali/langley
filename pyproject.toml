@@ -1,0 +1,90 @@
+# Root of the Langley monorepo.
+#
+# This is a uv *workspace* root. It is not itself an installable package; it
+# only declares the workspace members and centralizes shared tooling config
+# (Ruff + Pyright + pytest) so every package inherits one consistent standard.
+#
+# Only implemented packages are listed as members. Placeholder agent homes under
+# packages/ (langley_onchain, langley_narrative, ...) contain no pyproject yet and
+# are intentionally excluded until they are built.
+[project]
+name = "langley-monorepo"
+version = "0.0.0"
+description = "Langley — multi-agent crypto intelligence system (monorepo root)"
+requires-python = ">=3.12"
+# The root depends on each implemented member so `uv sync` installs them (and their
+# dependencies) into the shared workspace environment.
+dependencies = ["langley-risk"]
+
+[tool.uv.workspace]
+members = ["packages/langley_risk"]
+
+[tool.uv.sources]
+langley-risk = { workspace = true }
+
+[dependency-groups]
+# Tooling shared across the whole workspace, installed at the root.
+dev = [
+    "ruff>=0.6",
+    "pyright>=1.1.380",
+    "pytest>=8.2",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=5.0",
+    "respx>=0.21",
+]
+
+# ---------------------------------------------------------------------------
+# Ruff — lint + format. Shared across all packages.
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["packages/langley_risk/src"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes
+    "I",    # isort
+    "N",    # pep8-naming
+    "UP",   # pyupgrade (modern syntax)
+    "B",    # flake8-bugbear
+    "A",    # flake8-builtins
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+    "RUF",  # ruff-specific rules
+]
+# NOTE: flake8-type-checking (TCH) is intentionally NOT enabled. With
+# `from __future__ import annotations`, moving Pydantic/dataclass field types into a
+# TYPE_CHECKING block breaks runtime model resolution.
+ignore = [
+    "B008",    # function call in default arg — intended in DI-style code
+    "RUF001",  # ambiguous unicode in strings — em dashes are intentional
+    "RUF002",  # ambiguous unicode in docstrings
+    "RUF003",  # ambiguous unicode in comments
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]  # asserts are expected in tests
+
+[tool.ruff.lint.isort]
+known-first-party = ["langley_risk"]
+
+# ---------------------------------------------------------------------------
+# Pyright — strict type checking.
+# ---------------------------------------------------------------------------
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+include = ["packages/langley_risk/src", "packages/langley_risk/tests"]
+reportMissingTypeStubs = false
+
+# ---------------------------------------------------------------------------
+# pytest — async-friendly defaults; markers for live/network tests.
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["packages/langley_risk/tests"]
+markers = [
+    "live: tests that hit live external APIs or the OpenAI API (skipped by default)",
+]
