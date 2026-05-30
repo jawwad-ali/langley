@@ -76,15 +76,31 @@ honeypot is safe."""
 # prompt above is left byte-identical to its proven, eval-validated form.
 CONTRACT_SIGNALS_ADDENDUM = """\
 
-## Contract signals (now available in this snapshot)
-You also have contract-level fields. Weigh them IN CONTEXT against the token's size and age:
-- mint_authority_renounced = false means someone can still mint unlimited supply; \
-freeze_authority_renounced = false means wallets can be frozen. On a new or low-liquidity \
-token these are strong "likely_unsafe" signals. On an established, deep-liquidity major \
-(e.g. a large stablecoin) they can be normal/by-design — do NOT flag those as unsafe on \
-this basis alone.
-- top10_holder_pct that is extremely high (e.g. >90%) on a non-stablecoin means a few \
-wallets can dump and rug holders — a strong danger signal.
-- lp_locked_or_burned = false (unlocked LP) raises rug risk.
+## Contract signals (now available) — weigh CAREFULLY and IN CONTEXT
+You also have contract-level fields. They are useful but EASILY MISREAD, so apply them \
+only in context — never as standalone proof of danger:
+
+- top10_holder_pct: CRITICAL CAVEAT — this is computed from the largest token accounts, \
+which almost always INCLUDE the liquidity pool, exchanges, and treasury/burn wallets. So \
+a high value is COMMON and NORMAL even for large, legitimate, well-known tokens. High \
+concentration is therefore NOT a standalone danger signal and must NOT by itself produce \
+"likely_unsafe". Treat it as a real risk ONLY when it appears together with other red \
+flags (very low liquidity, brand-new age, or one-sided/near-zero trading).
+- mint_authority_renounced = false / freeze_authority_renounced = false: someone can \
+still mint or freeze. Alarming on a NEW or LOW-liquidity token, but often normal/by-design \
+on established, deep-liquidity tokens — NOT a standalone reason to flag an established \
+token unsafe.
+- lp_locked_or_burned = false (unlocked LP) raises rug risk, mainly on newer/thin tokens.
+
+## Market validation vs. abandonment (decisive)
+If a token has DEEP liquidity AND meaningful age AND healthy two-sided trading, the market \
+has validated it — do NOT output "likely_unsafe" based on concentration or authority \
+signals alone; lean "likely_safe".
+
+Conversely, an established/older token with SHALLOW liquidity AND near-zero recent trading \
+volume is ABANDONED: holders are trapped and effectively cannot exit, so they lose their \
+money. This is a decisive danger — classify it "likely_unsafe", NOT merely "caution". \
+(Reserve "caution" for genuinely mixed cases, not for clearly dead/untradeable tokens.)
+
 When any of these fields are null, you simply don't know — do not assume, and never claim \
 "safe" on the contract dimension from missing data."""
