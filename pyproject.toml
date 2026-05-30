@@ -14,13 +14,14 @@ description = "Langley — multi-agent crypto intelligence system (monorepo root
 requires-python = ">=3.12"
 # The root depends on each implemented member so `uv sync` installs them (and their
 # dependencies) into the shared workspace environment.
-dependencies = ["langley-risk"]
+dependencies = ["langley-risk", "langley-api"]
 
 [tool.uv.workspace]
-members = ["packages/langley_risk"]
+members = ["packages/langley_risk", "apps/api"]
 
 [tool.uv.sources]
 langley-risk = { workspace = true }
+langley-api = { workspace = true }
 
 [dependency-groups]
 # Tooling shared across the whole workspace, installed at the root.
@@ -39,7 +40,7 @@ dev = [
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-src = ["packages/langley_risk/src"]
+src = ["packages/langley_risk/src", "apps/api/src"]
 
 [tool.ruff.lint]
 select = [
@@ -68,7 +69,7 @@ ignore = [
 "tests/**" = ["S101"]  # asserts are expected in tests
 
 [tool.ruff.lint.isort]
-known-first-party = ["langley_risk"]
+known-first-party = ["langley_risk", "langley_api"]
 
 # ---------------------------------------------------------------------------
 # Pyright — strict type checking.
@@ -76,7 +77,7 @@ known-first-party = ["langley_risk"]
 [tool.pyright]
 pythonVersion = "3.12"
 typeCheckingMode = "strict"
-include = ["packages/langley_risk/src", "packages/langley_risk/tests"]
+include = ["packages/langley_risk/src", "packages/langley_risk/tests", "apps/api/src"]
 reportMissingTypeStubs = false
 
 # ---------------------------------------------------------------------------

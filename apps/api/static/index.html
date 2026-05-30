@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LANGLEY — Private Crypto Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=JetBrains+Mono:wght@400;500;700&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0b0c0f;
+    --ink-2: #111318;
+    --panel: #15181f;
+    --panel-2: #1b1f28;
+    --line: #2a2f3a;
+    --line-soft: #21252e;
+    --parchment: #ece4d2;
+    --muted: #8c8676;
+    --muted-2: #5f5c54;
+    --gold: #e0a93b;
+    --gold-dim: #b9882f;
+    --safe: #6fbf86;
+    --caution: #e0a93b;
+    --unsafe: #e0594f;
+    --abstain: #8893a6;
+    --crit: #e0594f;
+    --high: #e08644;
+    --med: #e0a93b;
+    --low: #9aa57f;
+    --info: #7f93a8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: "Spectral", Georgia, serif;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* blueprint grid + vignette + grain */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 46px 46px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 18%, #000 35%, transparent 80%);
+    opacity: 0.5;
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(224,169,59,0.10), transparent 60%),
+      radial-gradient(circle at 50% 120%, rgba(0,0,0,0.6), transparent 70%);
+  }
+  .grain {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap { position: relative; z-index: 2; max-width: 920px; margin: 0 auto; padding: 0 24px 96px; }
+
+  /* ---- top classification bar ---- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em;
+    color: var(--muted); text-transform: uppercase;
+    border-bottom: 1px solid var(--line); padding: 16px 0; margin-bottom: 64px;
+  }
+  .topbar .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--safe);
+    box-shadow: 0 0 10px var(--safe); display: inline-block; margin-right: 8px; animation: pulse 2.4s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: 0.3 } }
+  .topbar .right { color: var(--muted-2); }
+
+  /* ---- hero ---- */
+  .hero { text-align: center; padding-top: 26px; }
+  .kicker {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.42em;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 26px;
+  }
+  .wordmark {
+    font-family: "Fraunces", serif; font-weight: 900; font-size: clamp(64px, 13vw, 150px);
+    line-height: 0.86; letter-spacing: -0.03em; color: var(--parchment);
+    text-shadow: 0 2px 40px rgba(224,169,59,0.12);
+  }
+  .wordmark .dotcol { color: var(--gold); }
+  .tagline {
+    font-family: "Spectral", serif; font-style: italic; font-size: clamp(16px, 2.4vw, 22px);
+    color: var(--muted); margin-top: 22px; letter-spacing: 0.01em;
+  }
+  .rule {
+    width: 64px; height: 2px; background: var(--gold); margin: 34px auto 0; opacity: 0.8;
+  }
+
+  /* ---- intake ---- */
+  .intake { margin-top: 56px; }
+  .intake-label {
+    font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.22em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 12px; display: block;
+  }
+  .field {
+    display: flex; gap: 0; border: 1px solid var(--line); background: var(--panel);
+    border-radius: 2px; overflow: hidden; transition: border-color .2s, box-shadow .2s;
+  }
+  .field:focus-within { border-color: var(--gold-dim); box-shadow: 0 0 0 1px var(--gold-dim), 0 0 30px rgba(224,169,59,0.08); }
+  .field .prompt {
+    font-family: "JetBrains Mono", monospace; color: var(--gold); padding: 18px 6px 18px 18px; font-size: 16px;
+    user-select: none;
+  }
+  .field input {
+    flex: 1; background: transparent; border: none; outline: none; color: var(--parchment);
+    font-family: "JetBrains Mono", monospace; font-size: 15px; padding: 18px 12px; letter-spacing: 0.01em;
+  }
+  .field input::placeholder { color: var(--muted-2); }
+  .field button {
+    font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; background: var(--gold); color: #1a1305; border: none; padding: 0 26px;
+    cursor: pointer; transition: background .15s, transform .05s; white-space: nowrap;
+  }
+  .field button:hover { background: #f0bd55; }
+  .field button:active { transform: translateY(1px); }
+  .field button:disabled { background: var(--muted-2); cursor: not-allowed; color: #2a2a2a; }
+  .examples { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .examples span { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: 0.18em; color: var(--muted-2); text-transform: uppercase; }
+  .chip {
+    font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--muted); cursor: pointer;
+    border: 1px solid var(--line-soft); padding: 5px 11px; border-radius: 2px; transition: all .15s;
+  }
+  .chip:hover { color: var(--gold); border-color: var(--gold-dim); }
+
+  /* ---- loading ---- */
+  .loading { margin-top: 60px; display: none; }
+  .loading.on { display: block; }
+  .scanlog {
+    font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--muted);
+    border-left: 2px solid var(--gold-dim); padding-left: 18px; min-height: 120px;
+  }
+  .scanlog div { opacity: 0; animation: logIn .4s forwards; padding: 3px 0; }
+  .scanlog div .ok { color: var(--safe); }
+  @keyframes logIn { from { opacity: 0; transform: translateX(-6px) } to { opacity: 1; transform: none } }
+  .cursor { display: inline-block; width: 8px; height: 15px; background: var(--gold); animation: blink 1s steps(1) infinite; vertical-align: middle; margin-left: 4px; }
+  @keyframes blink { 50% { opacity: 0 } }
+
+  /* ---- dossier ---- */
+  .dossier { margin-top: 60px; display: none; }
+  .dossier.on { display: block; }
+  .reveal { opacity: 0; animation: rise .6s cubic-bezier(.2,.7,.2,1) forwards; }
+  @keyframes rise { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: none } }
+
+  .dossier-head {
+    display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;
+    border-bottom: 1px solid var(--line); padding-bottom: 18px;
+  }
+  .file-no { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--muted-2); text-transform: uppercase; }
+  .token-sym { font-family: "Fraunces", serif; font-weight: 600; font-size: 38px; line-height: 1; margin-top: 6px; }
+  .token-addr { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .meta { text-align: right; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--muted-2); letter-spacing: 0.08em; line-height: 1.8; }
+  .meta b { color: var(--muted); font-weight: 500; }
+
+  /* verdict stamp */
+  .verdict-row { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; margin-top: 40px; }
+  .stamp {
+    border: 3px solid var(--vcol); color: var(--vcol); border-radius: 4px; padding: 14px 22px;
+    font-family: "JetBrains Mono", monospace; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; transform: rotate(-7deg); position: relative; flex-shrink: 0;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vcol) 30%, transparent);
+    animation: stampIn .5s cubic-bezier(.2,1.4,.4,1) .2s both;
+  }
+  .stamp .v-main { font-size: 26px; display: block; }
+  .stamp .v-sub { font-size: 9.5px; letter-spacing: 0.18em; color: color-mix(in srgb, var(--vcol) 75%, var(--parchment)); margin-top: 3px; display: block; }
+  @keyframes stampIn { 0% { transform: rotate(-7deg) scale(2.4); opacity: 0 } 60% { opacity: 1 } 100% { transform: rotate(-7deg) scale(1); opacity: 1 } }
+
+  .confidence { flex: 1; min-width: 240px; }
+  .confidence .clabel { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .confidence .cval { color: var(--parchment); }
+  .meter { height: 10px; background: var(--ink-2); border: 1px solid var(--line); border-radius: 2px; overflow: hidden; }
+  .meter .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--gold-dim), var(--gold)); transition: width 1.1s cubic-bezier(.2,.7,.2,1) .4s; }
+
+  .assessment {
+    margin-top: 38px; font-family: "Spectral", serif; font-size: 19px; line-height: 1.65; color: var(--parchment);
+    border-left: 2px solid var(--gold); padding: 4px 0 4px 22px;
+  }
+
+  .section-title { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin: 48px 0 18px; display: flex; align-items: center; gap: 14px; }
+  .section-title::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  .signal {
+    background: var(--panel); border: 1px solid var(--line-soft); border-radius: 3px; padding: 20px 22px;
+    margin-bottom: 14px; position: relative;
+  }
+  .signal::before, .signal::after { content: ""; position: absolute; width: 7px; height: 7px; border-color: var(--line); border-style: solid; }
+  .signal::before { top: 7px; left: 7px; border-width: 1px 0 0 1px; }
+  .signal::after { bottom: 7px; right: 7px; border-width: 0 1px 1px 0; }
+  .sig-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .level-chip { font-family: "JetBrains Mono", monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; color: #0c0d0f; }
+  .sig-cat { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted-2); }
+  .sig-title { font-family: "Fraunces", serif; font-weight: 600; font-size: 19px; color: var(--parchment); }
+  .sig-detail { font-family: "Spectral", serif; font-size: 15.5px; color: var(--muted); line-height: 1.55; margin: 6px 0 14px; }
+  .evidence { display: flex; flex-direction: column; gap: 5px; border-top: 1px dashed var(--line); padding-top: 12px; }
+  .ev { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); }
+  .ev .k { color: var(--gold-dim); }
+  .ev .eq { color: var(--muted-2); margin: 0 6px; }
+  .ev .v { color: var(--parchment); }
+
+  .disclaimer {
+    margin-top: 48px; border-top: 1px solid var(--line); padding-top: 20px;
+    font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: 0.1em; line-height: 1.8;
+    color: var(--muted-2); text-transform: uppercase;
+  }
+  .disclaimer b { color: var(--unsafe); }
+
+  /* error */
+  .errbox { margin-top: 50px; display: none; border: 1px solid var(--unsafe); background: color-mix(in srgb, var(--unsafe) 8%, var(--panel));
+    padding: 22px; border-radius: 3px; }
+  .errbox.on { display: block; }
+  .errbox .et { font-family: "JetBrains Mono", monospace; font-weight: 700; letter-spacing: 0.16em; color: var(--unsafe); text-transform: uppercase; font-size: 13px; }
+  .errbox .em { font-family: "Spectral", serif; color: var(--muted); margin-top: 8px; font-size: 15px; }
+
+  .footer { margin-top: 70px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--muted-2); text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="wrap">
+  <div class="topbar">
+    <div><span class="dot"></span>Langley // Operations</div>
+    <div class="right">Clearance: Eyes Only</div>
+  </div>
+
+  <header class="hero">
+    <div class="kicker">Private Crypto Intelligence Agency</div>
+    <h1 class="wordmark">LANGLEY<span class="dotcol">.</span></h1>
+    <p class="tagline">Evidence-cited risk intelligence on any Solana token — in seconds, not hours.</p>
+    <div class="rule"></div>
+  </header>
+
+  <section class="intake">
+    <label class="intake-label" for="q">Target designation — mint address or symbol</label>
+    <form class="field" id="form" autocomplete="off">
+      <span class="prompt">&gt;</span>
+      <input id="q" name="q" placeholder="So11111111111111111111111111111111111111112" spellcheck="false" />
+      <button type="submit" id="go">Initiate Analysis</button>
+    </form>
+    <div class="examples">
+      <span>Quick targets:</span>
+      <span class="chip" data-q="So11111111111111111111111111111111111111112">WSOL</span>
+      <span class="chip" data-q="DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263">BONK</span>
+      <span class="chip" data-q="JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN">JUP</span>
+    </div>
+  </section>
+
+  <section class="loading" id="loading">
+    <div class="scanlog" id="scanlog"></div>
+  </section>
+
+  <section class="errbox" id="errbox">
+    <div class="et">// Transmission Error</div>
+    <div class="em" id="errmsg"></div>
+  </section>
+
+  <section class="dossier" id="dossier"></section>
+
+  <div class="footer">Langley Intelligence Network — Risk Guardian Unit</div>
+</div>
+
+<script>
+  const VERDICTS = {
+    likely_safe:   { col: "var(--safe)",    main: "CLEARED",            sub: "No disqualifying risk found" },
+    caution:       { col: "var(--caution)", main: "CAUTION",            sub: "Elevated risk — proceed carefully" },
+    likely_unsafe: { col: "var(--unsafe)",  main: "FLAGGED",            sub: "High risk — likely unsafe" },
+    abstain:       { col: "var(--abstain)", main: "INSUFFICIENT INTEL", sub: "Not enough evidence to judge" },
+  };
+  const LEVELS = { critical: "--crit", high: "--high", medium: "--med", low: "--low", info: "--info" };
+  const SCAN_LINES = [
+    "Establishing secure channel…",
+    "Querying on-chain registry [Helius]…",
+    "Pulling market intelligence [DexScreener]…",
+    "Inspecting contract authorities & holder concentration…",
+    "Cross-examining evidence — every claim must cite data…",
+    "Compiling dossier…",
+  ];
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;" }[c]));
+  const shortAddr = (a) => (a && a.length > 14 ? `${a.slice(0,5)}…${a.slice(-5)}` : a || "—");
+
+  let scanTimer = null;
+  function startScan() {
+    const box = $("scanlog"); box.innerHTML = ""; let i = 0;
+    const tick = () => {
+      if (i < SCAN_LINES.length) {
+        const d = document.createElement("div");
+        d.innerHTML = `<span class="ok">✓</span> ${SCAN_LINES[i]}`;
+        box.appendChild(d); i++;
+      } else {
+        const d = document.createElement("div");
+        d.innerHTML = `Awaiting verdict<span class="cursor"></span>`;
+        box.appendChild(d); clearInterval(scanTimer);
+      }
+    };
+    tick(); scanTimer = setInterval(tick, 1100);
+  }
+
+  function setState(s) {
+    $("loading").classList.toggle("on", s === "loading");
+    $("dossier").classList.toggle("on", s === "result");
+    $("errbox").classList.toggle("on", s === "error");
+    $("go").disabled = s === "loading";
+    $("go").textContent = s === "loading" ? "Analyzing…" : "Initiate Analysis";
+  }
+
+  function renderSignals(signals) {
+    if (!signals || !signals.length) return "";
+    const cards = signals.map((s, idx) => {
+      const lvl = LEVELS[s.level] || "--info";
+      const ev = (s.evidence || []).map((e) =>
+        `<div class="ev"><span class="k">${esc(e.field)}</span><span class="eq">=</span><span class="v">${esc(e.observed_value)}</span></div>`
+      ).join("");
+      return `<div class="signal reveal" style="animation-delay:${0.5 + idx * 0.12}s">
+        <div class="sig-head">
+          <span class="level-chip" style="background:var(${lvl})">${esc(s.level)}</span>
+          <span class="sig-cat">${esc((s.category || "").replace(/_/g, " "))}</span>
+        </div>
+        <div class="sig-title">${esc(s.title)}</div>
+        <div class="sig-detail">${esc(s.detail)}</div>
+        ${ev ? `<div class="evidence">${ev}</div>` : ""}
+      </div>`;
+    }).join("");
+    return `<div class="section-title reveal" style="animation-delay:.45s">Evidence — ${signals.length} signal${signals.length > 1 ? "s" : ""}</div>${cards}`;
+  }
+
+  function renderReport(r) {
+    const v = VERDICTS[r.verdict] || VERDICTS.abstain;
+    const conf = Math.round((r.confidence ?? 0) * 100);
+    const ts = new Date().toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" });
+    const note = r.abstain_reason ? `${esc(r.summary)} — ${esc(r.abstain_reason)}` : esc(r.summary);
+
+    $("dossier").innerHTML = `
+      <div class="dossier-head reveal">
+        <div>
+          <div class="file-no">Case File // ${esc(shortAddr(r.token_address))}</div>
+          <div class="token-sym">${esc(r.token_symbol || "Unknown Token")}</div>
+          <div class="token-addr">${esc(r.token_address)}</div>
+        </div>
+        <div class="meta">
+          <div>Source: <b>${esc(r.data_provider)}</b></div>
+          <div>Filed: <b>${esc(ts)}</b></div>
+        </div>
+      </div>
+
+      <div class="verdict-row reveal" style="animation-delay:.1s">
+        <div class="stamp" style="--vcol:${v.col}">
+          <span class="v-main">${v.main}</span>
+          <span class="v-sub">${v.sub}</span>
+        </div>
+        <div class="confidence">
+          <div class="clabel"><span>Assessment Confidence</span><span class="cval">${conf}%</span></div>
+          <div class="meter"><div class="fill" id="fill"></div></div>
+        </div>
+      </div>
+
+      <div class="assessment reveal" style="animation-delay:.3s">${note}</div>
+      ${renderSignals(r.signals)}
+      <div class="disclaimer reveal" style="animation-delay:.6s">
+        This assessment is a <b>risk signal, not financial advice</b>. Intelligence is derived from public
+        market and on-chain data and may be incomplete. Always do your own research before transacting.
+      </div>`;
+
+    setState("result");
+    requestAnimationFrame(() => { const f = $("fill"); if (f) f.style.width = conf + "%"; });
+    $("dossier").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  async function analyze(query) {
+    setState("loading"); startScan();
+    try {
+      const res = await fetch("/api/analyze", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query }),
+      });
+      if (scanTimer) clearInterval(scanTimer);
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.detail || `Request failed (${res.status})`);
+      }
+      renderReport(await res.json());
+    } catch (e) {
+      if (scanTimer) clearInterval(scanTimer);
+      $("errmsg").textContent = e.message || "Could not complete analysis.";
+      setState("error");
+    }
+  }
+
+  $("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = $("q").value.trim();
+    if (q) analyze(q);
+  });
+  document.querySelectorAll(".chip").forEach((c) =>
+    c.addEventListener("click", () => { $("q").value = c.dataset.q; analyze(c.dataset.q); })
+  );
+</script>
+</body>
+</html>
