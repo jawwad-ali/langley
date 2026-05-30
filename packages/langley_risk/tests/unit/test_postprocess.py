@@ -48,6 +48,48 @@ class TestEvidenceIntegrity:
         gated = apply_gate(report, snapshot)
         assert gated.verdict == Verdict.LIKELY_UNSAFE
 
+    def test_unsafe_with_mixed_evidence_keeps_verdict_drops_bad_signal(
+        self, make_snapshot: Callable[..., MarketSnapshot]
+    ) -> None:
+        # Agent flags unsafe with one grounded danger signal + one citing a null field.
+        # The gate must KEEP unsafe (conservative) and drop only the ungrounded signal.
+        snapshot = make_snapshot(top10_holder_pct=100.0, liquidity_usd=None)
+        report = TokenRiskReport(
+            token_address="x",
+            verdict=Verdict.LIKELY_UNSAFE,
+            confidence=0.85,
+            summary="concentrated + unknown liquidity",
+            signals=[
+                RiskSignal(
+                    category=SignalCategory.HOLDER_DISTRIBUTION,
+                    level=RiskLevel.CRITICAL,
+                    title="Extreme concentration",
+                    detail="Top holders own everything.",
+                    evidence=[Evidence(field="top10_holder_pct", observed_value="100.0")],
+                ),
+                RiskSignal(
+                    category=SignalCategory.LIQUIDITY,
+                    level=RiskLevel.HIGH,
+                    title="Unknown liquidity",
+                    detail="Liquidity not reported.",
+                    evidence=[Evidence(field="liquidity_usd", observed_value="None")],
+                ),
+            ],
+            data_provider="dexscreener+helius",
+        )
+        gated = apply_gate(report, snapshot)
+        assert gated.verdict == Verdict.LIKELY_UNSAFE
+        cited = {e.field for s in gated.signals for e in s.evidence}
+        assert cited == {"top10_holder_pct"}  # ungrounded liquidity_usd signal dropped
+
+    def test_unsafe_with_only_ungrounded_evidence_abstains(
+        self, make_snapshot: Callable[..., MarketSnapshot]
+    ) -> None:
+        snapshot = make_snapshot(holder_count=None)
+        report = _report(Verdict.LIKELY_UNSAFE, evidence_field="holder_count")
+        gated = apply_gate(report, snapshot)
+        assert gated.verdict == Verdict.ABSTAIN
+
 
 class TestSafetyCoverage:
     def test_likely_safe_without_coverage_forces_abstain(

@@ -67,14 +67,14 @@
     "label": "unsafe",
     "danger_visibility": "contract_only",
     "source": "real",
-    "verdict": "abstain"
+    "verdict": "likely_unsafe"
   },
   {
     "id": "greedani",
     "label": "unsafe",
     "danger_visibility": "contract_only",
     "source": "real",
-    "verdict": "abstain"
+    "verdict": "likely_unsafe"
   },
   {
     "id": "syn_rug",

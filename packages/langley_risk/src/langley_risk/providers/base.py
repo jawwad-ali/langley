@@ -11,14 +11,19 @@ from __future__ import annotations
 from enum import StrEnum
 from typing import Protocol, runtime_checkable
 
+from langley_risk.domain.contract import ContractInfo
 from langley_risk.domain.market import MarketSnapshot
 
 
 class ProviderName(StrEnum):
-    """Identifiers for the available data providers."""
+    """Identifiers for the available data providers / enrichers."""
 
     DEXSCREENER = "dexscreener"
-    # Future: HELIUS = "helius", BIRDEYE = "birdeye"
+    # "helius" and "composite" both resolve to DexScreener market data enriched with
+    # Helius contract data (Helius alone has no market/liquidity view).
+    HELIUS = "helius"
+    COMPOSITE = "composite"
+    # Future: BIRDEYE = "birdeye"
 
 
 @runtime_checkable
@@ -44,6 +49,29 @@ class DataProvider(Protocol):
             ProviderTimeoutError: The provider did not respond in time.
             ProviderResponseInvalidError: The response could not be parsed.
         """
+        ...
+
+    async def aclose(self) -> None:
+        """Release any underlying resources (e.g. HTTP connections)."""
+        ...
+
+
+@runtime_checkable
+class ContractEnricher(Protocol):
+    """Fetches contract-level facts for a mint that a market provider cannot see.
+
+    Used additively by ``CompositeProvider`` to fill the contract fields of a
+    ``MarketSnapshot``. Failures must raise the ``ProviderError`` hierarchy so the
+    composite can degrade gracefully (keep the market-only snapshot).
+    """
+
+    @property
+    def name(self) -> str:
+        """Human-readable enricher name."""
+        ...
+
+    async def get_contract_info(self, mint: str) -> ContractInfo:
+        """Return contract-level signals for a Solana mint address."""
         ...
 
     async def aclose(self) -> None:

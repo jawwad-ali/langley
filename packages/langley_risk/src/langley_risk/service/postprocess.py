@@ -115,6 +115,14 @@ def evidence_is_grounded(report: TokenRiskReport, snapshot: MarketSnapshot) -> b
     return not _ungrounded_fields(report, snapshot)
 
 
+def _grounded_signals(report: TokenRiskReport, snapshot: MarketSnapshot) -> list[RiskSignal]:
+    """Signals whose every cited field is present (non-null) in the snapshot."""
+    citable = snapshot.citable_fields()
+    return [
+        s for s in report.signals if s.evidence and all(ev.field in citable for ev in s.evidence)
+    ]
+
+
 def has_safety_coverage(snapshot: MarketSnapshot) -> bool:
     """Whether the snapshot carries enough positive evidence to justify 'likely_safe'."""
     if snapshot.liquidity_usd is None or snapshot.liquidity_usd < MIN_SAFE_LIQUIDITY_USD:
@@ -134,15 +142,22 @@ def apply_gate(report: TokenRiskReport, snapshot: MarketSnapshot) -> TokenRiskRe
         if danger is not None:
             return _force_unsafe(report, danger)
 
-    # 1. Evidence integrity — applies to any conclusive verdict.
+    # 1. Evidence integrity. Ungrounded citations may not JUSTIFY a verdict, but the gate
+    #    must never move a verdict AWAY from caution. So:
+    #    - LIKELY_UNSAFE: drop the ungrounded signals but KEEP the verdict as long as a
+    #      grounded danger signal remains (forcing abstain here would be less safe). Only
+    #      if NO signal is grounded is the danger fabricated -> abstain.
+    #    - safe / caution: any ungrounded citation -> abstain (don't trust it).
     if report.verdict in CONCLUSIVE_VERDICTS:
-        ungrounded = _ungrounded_fields(report, snapshot)
-        if ungrounded:
-            return _force_abstain(
-                report,
-                f"Verdict cited fields not present in the data: {', '.join(ungrounded)}. "
-                "Conclusion was not grounded in observed values.",
-            )
+        grounded = _grounded_signals(report, snapshot)
+        if len(grounded) != len(report.signals):
+            if report.verdict == Verdict.LIKELY_UNSAFE and grounded:
+                report = report.model_copy(update={"signals": grounded})
+            else:
+                return _force_abstain(
+                    report,
+                    "Verdict cited fields not present in the observed data; not grounded.",
+                )
 
     # 2. Coverage — a 'likely_safe' claim needs positive, present safety signals.
     if report.verdict == Verdict.LIKELY_SAFE and not has_safety_coverage(snapshot):

@@ -69,3 +69,22 @@ and keep signals minimal.
 
 Be precise and conservative. Your reputation depends on never telling a user a \
 honeypot is safe."""
+
+
+# Appended to the instructions ONLY when the provider supplies contract data (Helius /
+# composite). On the DexScreener-only path these fields are always null, so the base
+# prompt above is left byte-identical to its proven, eval-validated form.
+CONTRACT_SIGNALS_ADDENDUM = """\
+
+## Contract signals (now available in this snapshot)
+You also have contract-level fields. Weigh them IN CONTEXT against the token's size and age:
+- mint_authority_renounced = false means someone can still mint unlimited supply; \
+freeze_authority_renounced = false means wallets can be frozen. On a new or low-liquidity \
+token these are strong "likely_unsafe" signals. On an established, deep-liquidity major \
+(e.g. a large stablecoin) they can be normal/by-design — do NOT flag those as unsafe on \
+this basis alone.
+- top10_holder_pct that is extremely high (e.g. >90%) on a non-stablecoin means a few \
+wallets can dump and rug holders — a strong danger signal.
+- lp_locked_or_burned = false (unlocked LP) raises rug risk.
+When any of these fields are null, you simply don't know — do not assume, and never claim \
+"safe" on the contract dimension from missing data."""

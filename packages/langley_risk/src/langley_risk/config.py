@@ -43,9 +43,15 @@ class Settings(BaseSettings):
     max_turns: int = Field(default=6, ge=1, le=20)
 
     # --- Data provider ---
+    # Default stays DexScreener (market-only). Set to "helius"/"composite" to also
+    # enrich with Helius contract data (requires helius_api_key).
     provider: ProviderName = ProviderName.DEXSCREENER
     dexscreener_base_url: str = "https://api.dexscreener.com"
     http_timeout_seconds: float = Field(default=10.0, gt=0.0)
+
+    # --- Helius contract enrichment (optional) ---
+    helius_api_key: str | None = None
+    helius_rpc_url: str = "https://mainnet.helius-rpc.com"
 
     # --- Logging ---
     log_level: str = "INFO"
