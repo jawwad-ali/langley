@@ -1,0 +1,53 @@
+{
+  "mint": "jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL",
+  "hint_symbol": "JTO",
+  "source_pool": "curated_legit",
+  "dex": {
+    "pair_found": true,
+    "symbol": "JTO",
+    "liquidity_usd": 1168203.59,
+    "age_hours": 21725.1,
+    "buys_24h": 2228,
+    "sells_24h": 1773,
+    "volume_24h_usd": 669868.86,
+    "price_change_24h_pct": 7.86
+  },
+  "rugcheck": {
+    "available": true,
+    "score_normalised": 35,
+    "lp_locked_pct": 2.0214564519985077,
+    "risks": [
+      {
+        "name": "Single holder ownership",
+        "level": "warn"
+      },
+      {
+        "name": "High holder concentration",
+        "level": "warn"
+      },
+      {
+        "name": "Mutable metadata",
+        "level": "warn"
+      }
+    ]
+  },
+  "goplus": {
+    "available": true,
+    "mintable": "0",
+    "freezable": "0",
+    "closable": "0",
+    "balance_mutable_authority": "0",
+    "transfer_fee_upgradable": "0",
+    "non_transferable": null
+  },
+  "provisional": {
+    "mint": "jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL",
+    "hint_symbol": "JTO",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($1,168,204), age 21,725h."
+  }
+}

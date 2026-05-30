@@ -1,0 +1,93 @@
+[
+  {
+    "id": "sol",
+    "label": "safe",
+    "danger_visibility": "na",
+    "source": "real",
+    "verdict": "likely_safe"
+  },
+  {
+    "id": "usdc",
+    "label": "safe",
+    "danger_visibility": "na",
+    "source": "real",
+    "verdict": "likely_safe"
+  },
+  {
+    "id": "bonk",
+    "label": "safe",
+    "danger_visibility": "na",
+    "source": "real",
+    "verdict": "likely_safe"
+  },
+  {
+    "id": "jup",
+    "label": "safe",
+    "danger_visibility": "na",
+    "source": "real",
+    "verdict": "likely_safe"
+  },
+  {
+    "id": "jto",
+    "label": "safe",
+    "danger_visibility": "na",
+    "source": "real",
+    "verdict": "likely_safe"
+  },
+  {
+    "id": "wif",
+    "label": "safe",
+    "danger_visibility": "na",
+    "source": "real",
+    "verdict": "likely_safe"
+  },
+  {
+    "id": "ray",
+    "label": "safe",
+    "danger_visibility": "na",
+    "source": "real",
+    "verdict": "likely_safe"
+  },
+  {
+    "id": "pyth",
+    "label": "safe",
+    "danger_visibility": "na",
+    "source": "real",
+    "verdict": "likely_safe"
+  },
+  {
+    "id": "render",
+    "label": "safe",
+    "danger_visibility": "na",
+    "source": "real",
+    "verdict": "likely_safe"
+  },
+  {
+    "id": "evilfish",
+    "label": "unsafe",
+    "danger_visibility": "contract_only",
+    "source": "real",
+    "verdict": "abstain"
+  },
+  {
+    "id": "greedani",
+    "label": "unsafe",
+    "danger_visibility": "contract_only",
+    "source": "real",
+    "verdict": "abstain"
+  },
+  {
+    "id": "syn_rug",
+    "label": "unsafe",
+    "danger_visibility": "dexscreener_visible",
+    "source": "synthetic",
+    "verdict": "likely_unsafe"
+  },
+  {
+    "id": "syn_honeypot",
+    "label": "unsafe",
+    "danger_visibility": "dexscreener_visible",
+    "source": "synthetic",
+    "verdict": "likely_unsafe"
+  }
+]

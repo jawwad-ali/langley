@@ -1,0 +1,39 @@
+{
+  "mint": "GeB8t9ZYfCa2PCyw2XgWiDBB1WMmC6nrPUwTthAkpump",
+  "hint_symbol": "GREEDANI",
+  "source_pool": "dex_profiles",
+  "dex": {
+    "pair_found": true,
+    "symbol": "GREEDANI",
+    "liquidity_usd": null,
+    "age_hours": 2.3,
+    "buys_24h": 319,
+    "sells_24h": 138,
+    "volume_24h_usd": 14106.45,
+    "price_change_24h_pct": 195
+  },
+  "rugcheck": {
+    "available": true,
+    "score_normalised": 49,
+    "lp_locked_pct": 0,
+    "risks": [
+      {
+        "name": "Creator history of rugged tokens",
+        "level": "danger"
+      }
+    ]
+  },
+  "goplus": {
+    "available": false
+  },
+  "provisional": {
+    "mint": "GeB8t9ZYfCa2PCyw2XgWiDBB1WMmC6nrPUwTthAkpump",
+    "hint_symbol": "GREEDANI",
+    "source_pool": "dex_profiles",
+    "provisional_label": "unsafe",
+    "label_subtype": "creator_rug_history",
+    "danger_visibility": "contract_only",
+    "provisional_confidence": 0.6,
+    "rationale": "RugCheck flags creator history of rugged tokens (not visible on DexScreener)."
+  }
+}

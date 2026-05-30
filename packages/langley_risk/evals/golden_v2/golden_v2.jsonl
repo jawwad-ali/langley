@@ -1,0 +1,13 @@
+{"id": "sol", "query": "So11111111111111111111111111111111111111112", "label": "safe", "danger_visibility": "na", "source": "real", "subtype": "bluechip", "fixture": "sol.json"}
+{"id": "usdc", "query": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", "label": "safe", "danger_visibility": "na", "source": "real", "subtype": "stablecoin", "fixture": "usdc.json"}
+{"id": "bonk", "query": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263", "label": "safe", "danger_visibility": "na", "source": "real", "subtype": "established", "fixture": "bonk.json"}
+{"id": "jup", "query": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN", "label": "safe", "danger_visibility": "na", "source": "real", "subtype": "established", "fixture": "jup.json"}
+{"id": "jto", "query": "jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL", "label": "safe", "danger_visibility": "na", "source": "real", "subtype": "established", "fixture": "jto.json"}
+{"id": "wif", "query": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm", "label": "safe", "danger_visibility": "na", "source": "real", "subtype": "established", "fixture": "wif.json"}
+{"id": "ray", "query": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R", "label": "safe", "danger_visibility": "na", "source": "real", "subtype": "established", "fixture": "ray.json"}
+{"id": "pyth", "query": "HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3", "label": "safe", "danger_visibility": "na", "source": "real", "subtype": "established", "fixture": "pyth.json"}
+{"id": "render", "query": "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof", "label": "safe", "danger_visibility": "na", "source": "real", "subtype": "established", "fixture": "render.json"}
+{"id": "evilfish", "query": "89PZ7tzJ1bkWJFgrno7xdvk7u5MTfcAKu65S9YBTpump", "label": "unsafe", "danger_visibility": "contract_only", "source": "real", "subtype": "creator_rug_history", "fixture": "evilfish.json"}
+{"id": "greedani", "query": "GeB8t9ZYfCa2PCyw2XgWiDBB1WMmC6nrPUwTthAkpump", "label": "unsafe", "danger_visibility": "contract_only", "source": "real", "subtype": "creator_rug_history", "fixture": "greedani.json"}
+{"id": "syn_rug", "query": "RUGmintAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1", "label": "unsafe", "danger_visibility": "dexscreener_visible", "source": "synthetic", "subtype": "low_liquidity", "fixture": "syn_rug.json"}
+{"id": "syn_honeypot", "query": "HONEYmintBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB2", "label": "unsafe", "danger_visibility": "dexscreener_visible", "source": "synthetic", "subtype": "honeypot", "fixture": "syn_honeypot.json"}

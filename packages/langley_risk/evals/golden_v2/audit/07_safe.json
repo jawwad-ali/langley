@@ -1,0 +1,61 @@
+{
+  "mint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+  "hint_symbol": "RAY",
+  "source_pool": "curated_legit",
+  "dex": {
+    "pair_found": true,
+    "symbol": "RAY",
+    "liquidity_usd": 3926879.43,
+    "age_hours": 30701.8,
+    "buys_24h": 1039,
+    "sells_24h": 655,
+    "volume_24h_usd": 207359.68,
+    "price_change_24h_pct": -0.34
+  },
+  "rugcheck": {
+    "available": true,
+    "score_normalised": 56,
+    "lp_locked_pct": 0.19345175627740865,
+    "risks": [
+      {
+        "name": "Top 10 holders high ownership",
+        "level": "danger"
+      },
+      {
+        "name": "Single holder ownership",
+        "level": "warn"
+      },
+      {
+        "name": "Single holder ownership",
+        "level": "warn"
+      },
+      {
+        "name": "Missing file metadata",
+        "level": "warn"
+      },
+      {
+        "name": "Mutable metadata",
+        "level": "warn"
+      }
+    ]
+  },
+  "goplus": {
+    "available": true,
+    "mintable": "0",
+    "freezable": "0",
+    "closable": "0",
+    "balance_mutable_authority": "0",
+    "transfer_fee_upgradable": "0",
+    "non_transferable": null
+  },
+  "provisional": {
+    "mint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+    "hint_symbol": "RAY",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($3,926,879), age 30,702h."
+  }
+}

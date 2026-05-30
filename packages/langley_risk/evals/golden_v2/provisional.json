@@ -1,0 +1,552 @@
+[
+  {
+    "mint": "So11111111111111111111111111111111111111112",
+    "hint_symbol": "WSOL",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($28,315,543), age 25,562h."
+  },
+  {
+    "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "hint_symbol": "USDC",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($4,257,433), age 15,675h."
+  },
+  {
+    "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "hint_symbol": "USDT",
+    "source_pool": "curated_legit",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "hint_symbol": "BONK",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($786,531), age 30,064h."
+  },
+  {
+    "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+    "hint_symbol": "JUP",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($784,217), age 20,393h."
+  },
+  {
+    "mint": "jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL",
+    "hint_symbol": "JTO",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($1,168,204), age 21,725h."
+  },
+  {
+    "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+    "hint_symbol": "WIF",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($4,858,134), age 22,116h."
+  },
+  {
+    "mint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+    "hint_symbol": "RAY",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($3,926,879), age 30,702h."
+  },
+  {
+    "mint": "HZ1JovNiVvGrGNiiYvEozEVgZ58xaU3RKwX8eACQBCt3",
+    "hint_symbol": "PYTH",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($306,104), age 15,674h."
+  },
+  {
+    "mint": "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof",
+    "hint_symbol": "RENDER",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($576,520), age 15,675h."
+  },
+  {
+    "mint": "BTSkAcrB6RgFvmmx7zMp3P7wQNBszmazrR6JLFSfmzm8",
+    "hint_symbol": null,
+    "source_pool": "rugcheck_verified",
+    "provisional_label": "exclude",
+    "label_subtype": "no_market",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "No DEX pair \u2014 agent has no data to judge."
+  },
+  {
+    "mint": "3RceBbbhrvohcVZAq1EtJusDiuxJTjESD2zti51npump",
+    "hint_symbol": null,
+    "source_pool": "rugcheck_verified",
+    "provisional_label": "exclude",
+    "label_subtype": "no_market",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "No DEX pair \u2014 agent has no data to judge."
+  },
+  {
+    "mint": "3JwCf8YnFdcQjfs1kiAVgiAVJAymXnJdsGXN7x6hbonk",
+    "hint_symbol": null,
+    "source_pool": "rugcheck_verified",
+    "provisional_label": "exclude",
+    "label_subtype": "no_market",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "No DEX pair \u2014 agent has no data to judge."
+  },
+  {
+    "mint": "Dr5YqYNJxT2W644nAwN2K54wXj3qtGkpR6AmaKJ6pump",
+    "hint_symbol": null,
+    "source_pool": "rugcheck_verified",
+    "provisional_label": "exclude",
+    "label_subtype": "no_market",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "No DEX pair \u2014 agent has no data to judge."
+  },
+  {
+    "mint": "97VoKBQsK2nia3G3Fm4nkjvAVNkvez1pTFgdmxf9XhYG",
+    "hint_symbol": null,
+    "source_pool": "rugcheck_verified",
+    "provisional_label": "exclude",
+    "label_subtype": "no_market",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "No DEX pair \u2014 agent has no data to judge."
+  },
+  {
+    "mint": "2Z6ygm5k6Gm4W9dgeDoc1dDSFpkLWp7wxo95DPszpump",
+    "hint_symbol": null,
+    "source_pool": "rugcheck_verified",
+    "provisional_label": "exclude",
+    "label_subtype": "no_market",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "No DEX pair \u2014 agent has no data to judge."
+  },
+  {
+    "mint": "BzMWbt7ko3P8c457gzxuBCCt6q73sJyG98nQNeTfcCom",
+    "hint_symbol": "ESF",
+    "source_pool": "rugcheck_verified",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "J3FnBoPv9vLTPi2Lj1S4NFRaWoEDQ47Sy3E4ZfrVBAGS",
+    "hint_symbol": "HATON",
+    "source_pool": "rugcheck_verified",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "cpbqtLWH8DkwuVYvKeVVjV9JowkFd8kkpo1vjCSopen",
+    "hint_symbol": "OPEN",
+    "source_pool": "rugcheck_verified",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "6z9XSmYTZffoPUrpuManU7rxjfn7naEbWnDacdAXbonk",
+    "hint_symbol": "PAIR",
+    "source_pool": "rugcheck_verified",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "3BmfmP7UY6LxoW7ibkDCXhzkzkARpCgr3Sk6KHc9pump",
+    "hint_symbol": "TOFULING",
+    "source_pool": "rugcheck_recent",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "FeMrhDeddUvuzo25RZriZD6Te8xy3tdyKLLXBhEEpump",
+    "hint_symbol": "DOGEUS",
+    "source_pool": "rugcheck_recent",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "5Jjw95dWbRFDUCM4MKJv4HBzZkwUiVVT1GQSmRdpump",
+    "hint_symbol": "BABEL",
+    "source_pool": "rugcheck_recent",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "5i2XJULjqjhK8rDN5Bm6Z1pukEs653yuENqg9EkUpump",
+    "hint_symbol": "LEET",
+    "source_pool": "rugcheck_recent",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "DZBff9C2LXgTSyy5WpG2UDzKSKVVYmi4vPjzdV9Spump",
+    "hint_symbol": "BUBO",
+    "source_pool": "rugcheck_recent",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "3TYgKwkE2Y3rxdw9osLRSpxpXmSC1C1oo19W9KHspump",
+    "hint_symbol": "BULL",
+    "source_pool": "rugcheck_recent",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "6y3mVtvrUpiTdfmazndxvtj1WsGWqpX1MKy8XW76pump",
+    "hint_symbol": "DEE",
+    "source_pool": "rugcheck_recent",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "Hkpi2SkNWm5LogyY1Bz4zYTq5REVvco2aYWd1tYppump",
+    "hint_symbol": "FCM",
+    "source_pool": "rugcheck_recent",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "5nzAoCXsXnLDTd3amsDFqoksEEY4VhZWk6p2rkWCpump",
+    "hint_symbol": "DATAHOUSE",
+    "source_pool": "rugcheck_recent",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "6qdzMx4c9rL2X3Ns3SwZ8uEo4zReDPjdXpAEmpo7pump",
+    "hint_symbol": "BABYTROLL",
+    "source_pool": "rugcheck_recent",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "EfekfXA2Yv8mnepE187r9GXGeX3mowTmumRhW9yQpump",
+    "hint_symbol": "Kiwi",
+    "source_pool": "rugcheck_new",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "Fu5NFwa4kiUTB4Hk4aUrxqFE6boBTJEuMEZMZkiEpump",
+    "hint_symbol": "CRIME",
+    "source_pool": "rugcheck_new",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "FktYewmWFUHM2gW89BkUuD4FnR3qciz8jkqhPGyFpump",
+    "hint_symbol": "CRIME",
+    "source_pool": "rugcheck_new",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "HzEdG7LsXMfhTjevJ9pMps3sTDdwin6eNQzJcQJxyLRi",
+    "hint_symbol": "Pigeon",
+    "source_pool": "rugcheck_new",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "Bt5czo6MBvRvS8RW8Jk3oCY1CnuDRC9zEQjrHVa3pump",
+    "hint_symbol": "MOMO",
+    "source_pool": "rugcheck_new",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "6sVuYPuuQDpY4XtGu7b3EEGzyvDjAbC1YgXi1XAcbj1B",
+    "hint_symbol": "POMP",
+    "source_pool": "rugcheck_new",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "89PZ7tzJ1bkWJFgrno7xdvk7u5MTfcAKu65S9YBTpump",
+    "hint_symbol": "EvilFishh",
+    "source_pool": "rugcheck_new",
+    "provisional_label": "unsafe",
+    "label_subtype": "creator_rug_history",
+    "danger_visibility": "contract_only",
+    "provisional_confidence": 0.6,
+    "rationale": "RugCheck flags creator history of rugged tokens (not visible on DexScreener)."
+  },
+  {
+    "mint": "2oyMfzeFzjD9PDKhsx5wNjfL1ovsVcRLZ6FXTv9opump",
+    "hint_symbol": "Patrick",
+    "source_pool": "rugcheck_new",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "GdLVgdmCeW3wJA4mLGyuT2VLbrtzHyaZvJzG13iyiUbC",
+    "hint_symbol": null,
+    "source_pool": "rugcheck_new",
+    "provisional_label": "exclude",
+    "label_subtype": "no_market",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "No DEX pair \u2014 agent has no data to judge."
+  },
+  {
+    "mint": "9oi12PUrivv6jtbuaYZVJdf9w41gvKQwnnCprML8wAHe",
+    "hint_symbol": null,
+    "source_pool": "rugcheck_new",
+    "provisional_label": "exclude",
+    "label_subtype": "no_market",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "No DEX pair \u2014 agent has no data to judge."
+  },
+  {
+    "mint": "EvEFhvsyEuivzz3tR5RKkuoxbYewucUWwR4uUFKCpump",
+    "hint_symbol": "CONSOLES",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "GeB8t9ZYfCa2PCyw2XgWiDBB1WMmC6nrPUwTthAkpump",
+    "hint_symbol": "GREEDANI",
+    "source_pool": "dex_profiles",
+    "provisional_label": "unsafe",
+    "label_subtype": "creator_rug_history",
+    "danger_visibility": "contract_only",
+    "provisional_confidence": 0.6,
+    "rationale": "RugCheck flags creator history of rugged tokens (not visible on DexScreener)."
+  },
+  {
+    "mint": "BJe1HdCeCUjtA2btYA7mtfwsBGYZdeYoAwkXG68Gpump",
+    "hint_symbol": "RICH",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "51AnHYhTdxHvmtpKkeDqDSRSVTbufbyaHt5KMbHtpump",
+    "hint_symbol": "CRIME",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "391gMxrP5eUPpgnSM6izE4KUExyKGJxw3v7pr5UBpump",
+    "hint_symbol": "Garvis",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "CryTxk7wuQB3JxdyHM2jZCRmcojJ5omBZ5SorCUWpump",
+    "hint_symbol": "CrazyPump",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "AbFFjFfJPVHzjXucJuYJRvo9ZXi5GTbHBFcyQm29pump",
+    "hint_symbol": "\u30d7\u30ed\u30bf",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "AGH5T1if4EqHc2mctKj51owxaJmmZU3FVqRKqqCupump",
+    "hint_symbol": "CARDS",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "9mBVF5iyDE1Hn2efeLxWD6MfR3meNNSxhcifoEwApump",
+    "hint_symbol": "GRND",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "6YxdLcHUENznPfo8o8B1XNH3MC2ndjwfpzvxyXYQpump",
+    "hint_symbol": "DANCEBIRDS",
+    "source_pool": "dex_profiles",
+    "provisional_label": "unsafe",
+    "label_subtype": "creator_rug_history",
+    "danger_visibility": "contract_only",
+    "provisional_confidence": 0.6,
+    "rationale": "RugCheck flags creator history of rugged tokens (not visible on DexScreener)."
+  },
+  {
+    "mint": "AEQQsb2Pqi9rmHyD5SvEp2J38mz5k4cfL1BVJe1rpump",
+    "hint_symbol": "MOSQUITOS",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "CgC6xjn6LiusCajuBYCQVteqHK4Ufec87RBpMfjbpump",
+    "hint_symbol": "HALLE",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "9S7Gr9piTk81iqZUXe2stiyGa2mwKrmZ8YDYTCqKpump",
+    "hint_symbol": "Philosophy",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "2k1P4NECd6UXdgnPHy1fLupKsFHbWYtaWz355nkUpump",
+    "hint_symbol": "NCF",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  },
+  {
+    "mint": "HGzPx2JinNn4eoogP7NGM1B1mLR2s3u277jmE43Zpump",
+    "hint_symbol": "MOMO",
+    "source_pool": "dex_profiles",
+    "provisional_label": "exclude",
+    "label_subtype": "ambiguous",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.3,
+    "rationale": "Mixed/insufficient signals \u2014 excluded rather than guess."
+  }
+]

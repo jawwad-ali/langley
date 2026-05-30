@@ -1,0 +1,45 @@
+{
+  "mint": "6YxdLcHUENznPfo8o8B1XNH3MC2ndjwfpzvxyXYQpump",
+  "hint_symbol": "DANCEBIRDS",
+  "source_pool": "dex_profiles",
+  "dex": {
+    "pair_found": true,
+    "symbol": "DANCEBIRDS",
+    "liquidity_usd": null,
+    "age_hours": 1.1,
+    "buys_24h": 760,
+    "sells_24h": 716,
+    "volume_24h_usd": 50511.42,
+    "price_change_24h_pct": 37.53
+  },
+  "rugcheck": {
+    "available": true,
+    "score_normalised": 80,
+    "lp_locked_pct": 100,
+    "risks": [
+      {
+        "name": "Creator history of rugged tokens",
+        "level": "danger"
+      }
+    ]
+  },
+  "goplus": {
+    "available": true,
+    "mintable": "0",
+    "freezable": "0",
+    "closable": "0",
+    "balance_mutable_authority": "0",
+    "transfer_fee_upgradable": "0",
+    "non_transferable": null
+  },
+  "provisional": {
+    "mint": "6YxdLcHUENznPfo8o8B1XNH3MC2ndjwfpzvxyXYQpump",
+    "hint_symbol": "DANCEBIRDS",
+    "source_pool": "dex_profiles",
+    "provisional_label": "unsafe",
+    "label_subtype": "creator_rug_history",
+    "danger_visibility": "contract_only",
+    "provisional_confidence": 0.6,
+    "rationale": "RugCheck flags creator history of rugged tokens (not visible on DexScreener)."
+  }
+}

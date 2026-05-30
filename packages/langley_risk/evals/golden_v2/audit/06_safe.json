@@ -1,0 +1,45 @@
+{
+  "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+  "hint_symbol": "WIF",
+  "source_pool": "curated_legit",
+  "dex": {
+    "pair_found": true,
+    "symbol": "$WIF",
+    "liquidity_usd": 4858133.67,
+    "age_hours": 22116.3,
+    "buys_24h": 617,
+    "sells_24h": 496,
+    "volume_24h_usd": 301406.6,
+    "price_change_24h_pct": 2.69
+  },
+  "rugcheck": {
+    "available": true,
+    "score_normalised": 23,
+    "lp_locked_pct": 94.34606328511096,
+    "risks": [
+      {
+        "name": "High holder concentration",
+        "level": "warn"
+      }
+    ]
+  },
+  "goplus": {
+    "available": true,
+    "mintable": "0",
+    "freezable": "0",
+    "closable": "0",
+    "balance_mutable_authority": "0",
+    "transfer_fee_upgradable": "0",
+    "non_transferable": null
+  },
+  "provisional": {
+    "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+    "hint_symbol": "WIF",
+    "source_pool": "curated_legit",
+    "provisional_label": "safe",
+    "label_subtype": "established",
+    "danger_visibility": "n/a",
+    "provisional_confidence": 0.8,
+    "rationale": "Trusted/verified token, deep liquidity ($4,858,134), age 22,116h."
+  }
+}
