@@ -85,7 +85,7 @@ def _bucket_report(title: str, rows: list[RowOutcome]) -> list[str]:
     ]
 
 
-def format_report(outcomes: list[RowOutcome]) -> str:
+def format_report(outcomes: list[RowOutcome], provider: str) -> str:
     legit = [o for o in outcomes if o.label == "safe"]
     visible = [
         o for o in outcomes if o.label == "unsafe" and o.danger_visibility == "dexscreener_visible"
@@ -95,13 +95,19 @@ def format_report(outcomes: list[RowOutcome]) -> str:
     ]
     real = [o for o in outcomes if o.source == "real"]
     synthetic = [o for o in outcomes if o.source == "synthetic"]
-    real_visible = sum(1 for o in visible if o.source == "real")
 
     fatal = [o for o in outcomes if o.label == "unsafe" and o.verdict == Verdict.LIKELY_SAFE.value]
     false_pos = [o for o in legit if o.verdict == Verdict.LIKELY_UNSAFE.value]
 
+    # With a contract-data provider the agent CAN see contract-only danger, so it should
+    # now CATCH it; on the DexScreener-only path it can only safely ABSTAIN.
+    enriched = provider not in ("dexscreener", "recorded")
+    contract_expectation = (
+        "expect CATCH (contract data available)" if enriched else "expect ABSTAIN"
+    )
+
     lines = [
-        f"=== Risk Guardian eval — golden_v2 ({len(outcomes)} tokens: "
+        f"=== Risk Guardian eval - golden_v2 (provider={provider}; {len(outcomes)} tokens: "
         f"{len(real)} real, {len(synthetic)} synthetic) ===",
         "",
         f"FATAL errors (true unsafe called LIKELY_SAFE): {len(fatal)}   <- must be 0",
@@ -110,11 +116,7 @@ def format_report(outcomes: list[RowOutcome]) -> str:
         "By bucket (what the agent SHOULD do):",
         *_bucket_report("  Legit -> expect likely_safe/abstain", legit),
         *_bucket_report("  Unsafe, DexScreener-visible -> expect CATCH (unsafe)", visible),
-        *_bucket_report("  Unsafe, contract-only -> expect ABSTAIN", contract),
-        "",
-        f"Note: real DexScreener-visible scams in this sample = {real_visible}; the visible "
-        f"bucket is {len(visible) - real_visible} synthetic control(s). Real danger here was "
-        "contract-only (invisible to DexScreener) -> motivates a contract-data provider.",
+        *_bucket_report(f"  Unsafe, contract-only -> {contract_expectation}", contract),
     ]
     if fatal:
         lines += ["", "FATAL cases:"] + [f"    {o.id} ({o.danger_visibility})" for o in fatal]
@@ -130,7 +132,7 @@ async def run() -> list[RowOutcome]:
 def main() -> int:
     load_env_file()
     outcomes = asyncio.run(run())
-    report = format_report(outcomes)
+    report = format_report(outcomes, get_settings().provider.value)
     print(report)
     (V2_DIR / "eval_results.json").write_text(
         json.dumps([asdict(o) for o in outcomes], indent=2), encoding="utf-8"

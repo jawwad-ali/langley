@@ -16,7 +16,7 @@ import shutil
 from pathlib import Path
 from typing import Any
 
-from langley_risk.config import get_settings
+from langley_risk.config import get_settings, load_env_file
 from langley_risk.errors import ProviderError
 from langley_risk.evals.recorded_provider import write_snapshot_fixture
 from langley_risk.providers.factory import get_provider
@@ -104,6 +104,8 @@ def _copy_synthetic(rows: list[dict[str, Any]]) -> None:
 
 
 def main() -> int:
+    load_env_file()
+    print(f"Recording with provider = {get_settings().provider.value}")
     FIXTURES_V2.mkdir(parents=True, exist_ok=True)
     rows: list[dict[str, Any]] = []
     asyncio.run(_record_real(rows))
