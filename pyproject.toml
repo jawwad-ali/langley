@@ -77,7 +77,7 @@ known-first-party = ["langley_risk", "langley_api"]
 [tool.pyright]
 pythonVersion = "3.12"
 typeCheckingMode = "strict"
-include = ["packages/langley_risk/src", "packages/langley_risk/tests", "apps/api/src"]
+include = ["packages/langley_risk/src", "packages/langley_risk/tests", "apps/api/src", "apps/api/tests"]
 reportMissingTypeStubs = false
 
 # ---------------------------------------------------------------------------
@@ -85,7 +85,7 @@ reportMissingTypeStubs = false
 # ---------------------------------------------------------------------------
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-testpaths = ["packages/langley_risk/tests"]
+testpaths = ["packages/langley_risk/tests", "apps/api/tests"]
 markers = [
     "live: tests that hit live external APIs or the OpenAI API (skipped by default)",
 ]

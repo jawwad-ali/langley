@@ -11,9 +11,10 @@ from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse
 
+from langley_api.ratelimit import RateLimiter, RateLimitError
 from langley_api.schemas import AnalyzeRequest
 from langley_risk.config import get_settings, load_env_file
 from langley_risk.domain.report import TokenRiskReport
@@ -36,6 +37,9 @@ async def _lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
 
 app = FastAPI(title="Langley", description="Private crypto intelligence", lifespan=_lifespan)
 
+# Public-demo guardrails: bound per-client rate and total daily spend.
+_limiter = RateLimiter()
+
 
 @app.get("/", include_in_schema=False)
 async def index() -> FileResponse:
@@ -43,12 +47,19 @@ async def index() -> FileResponse:
 
 
 @app.post("/api/analyze", response_model=TokenRiskReport)
-async def analyze(request: AnalyzeRequest) -> TokenRiskReport:
+async def analyze(body: AnalyzeRequest, request: Request) -> TokenRiskReport:
     """Assess one token and return its evidence-cited risk report."""
+    client = request.client.host if request.client else "unknown"
     try:
-        return await analyze_token(request.query)
+        _limiter.check(client)
+    except RateLimitError as exc:
+        raise HTTPException(
+            status_code=429, detail=exc.reason, headers={"Retry-After": str(exc.retry_after_s)}
+        ) from exc
+    try:
+        return await analyze_token(body.query)
     except LangleyRiskError as exc:
-        logger.warning("Analysis failed for %r: %s", request.query, exc)
+        logger.warning("Analysis failed for %r: %s", body.query, exc)
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
