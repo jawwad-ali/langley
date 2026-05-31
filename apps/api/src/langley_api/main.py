@@ -21,6 +21,8 @@ from langley_risk.domain.report import TokenRiskReport
 from langley_risk.errors import LangleyRiskError
 from langley_risk.observability.logging import configure_logging
 from langley_risk.service.analyze import analyze_token
+from langley_synthesis.domain.report import IntelligenceReport
+from langley_synthesis.service.orchestrate import synthesize_token
 
 logger = logging.getLogger(__name__)
 STATIC_DIR = Path(__file__).resolve().parents[2] / "static"
@@ -41,14 +43,8 @@ app = FastAPI(title="Langley", description="Private crypto intelligence", lifesp
 _limiter = RateLimiter()
 
 
-@app.get("/", include_in_schema=False)
-async def index() -> FileResponse:
-    return FileResponse(STATIC_DIR / "index.html")
-
-
-@app.post("/api/analyze", response_model=TokenRiskReport)
-async def analyze(body: AnalyzeRequest, request: Request) -> TokenRiskReport:
-    """Assess one token and return its evidence-cited risk report."""
+def _guard(request: Request) -> None:
+    """Enforce the per-client + daily-cap rate limit; raise HTTP 429 if exceeded."""
     client = request.client.host if request.client else "unknown"
     try:
         _limiter.check(client)
@@ -56,6 +52,28 @@ async def analyze(body: AnalyzeRequest, request: Request) -> TokenRiskReport:
         raise HTTPException(
             status_code=429, detail=exc.reason, headers={"Retry-After": str(exc.retry_after_s)}
         ) from exc
+
+
+@app.get("/", include_in_schema=False)
+async def index() -> FileResponse:
+    return FileResponse(STATIC_DIR / "index.html")
+
+
+@app.post("/api/intelligence", response_model=IntelligenceReport)
+async def intelligence(body: AnalyzeRequest, request: Request) -> IntelligenceReport:
+    """Full multi-agent report: Risk Guardian + On-Chain Forensics, fused by Synthesis."""
+    _guard(request)
+    try:
+        return await synthesize_token(body.query)
+    except LangleyRiskError as exc:
+        logger.warning("Synthesis failed for %r: %s", body.query, exc)
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+@app.post("/api/analyze", response_model=TokenRiskReport)
+async def analyze(body: AnalyzeRequest, request: Request) -> TokenRiskReport:
+    """Single-agent endpoint: the Risk Guardian's evidence-cited verdict only."""
+    _guard(request)
     try:
         return await analyze_token(body.query)
     except LangleyRiskError as exc:

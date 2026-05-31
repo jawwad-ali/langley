@@ -588,6 +588,7 @@ source = { editable = "apps/api" }
 dependencies = [
     { name = "fastapi" },
     { name = "langley-risk" },
+    { name = "langley-synthesis" },
     { name = "uvicorn", extra = ["standard"] },
 ]
 
@@ -595,6 +596,7 @@ dependencies = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.115" },
     { name = "langley-risk", editable = "packages/langley_risk" },
+    { name = "langley-synthesis", editable = "packages/langley_synthesis" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30" },
 ]
 

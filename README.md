@@ -38,7 +38,12 @@ This repo is built **risk-first and eval-driven**: prove one agent is genuinely 
 
 ## Screenshots
 
-| Verdict: CLEARED | Verdict: FLAGGED |
+The demo UI shows the **fused multi-agent report** — a verdict, an "agents corroborate"
+cross-analysis, a synthesized briefing, ranked key points, and both agents' evidence:
+
+![Multi-agent intelligence dossier](docs/screenshots/dossier-intelligence.png)
+
+| Single-agent verdict: CLEARED | Single-agent verdict: FLAGGED |
 |---|---|
 | ![Cleared dossier](docs/screenshots/dossier-cleared.png) | ![Flagged dossier](docs/screenshots/dossier-flagged.png) |
 
@@ -115,9 +120,11 @@ To enable contract enrichment, set `LANGLEY_RISK_PROVIDER=composite` + `LANGLEY_
 
 | Agent | Status |
 |---|---|
-| **Risk Guardian** (`packages/langley_risk`) | ✅ Built, evaluated, calibrated |
-| On-Chain Forensics · Narrative Scout · Sentiment · Opportunity Simulator · Synthesis · Storyteller | 🅿️ Planned (placeholder homes) |
-| `apps/api` (demo API + UI) | ✅ Built |
+| **Risk Guardian** (`packages/langley_risk`) — the judge | ✅ Built, evaluated, calibrated |
+| **On-Chain Forensics** (`packages/langley_onchain`) — the investigator | ✅ Built |
+| **Synthesis Orchestrator** (`packages/langley_synthesis`) — fuses the specialists | ✅ Built |
+| Narrative Scout · Sentiment · Opportunity Simulator · Storyteller | 🅿️ Planned (placeholder homes) |
+| `apps/api` (demo API + UI, multi-agent) | ✅ Built |
 | `apps/web` (Next.js) | 🅿️ Planned |
 
 See [`docs/architecture.md`](docs/architecture.md) for the full vision and the risk-first rationale, and [`CLAUDE.md`](CLAUDE.md) for the engineering guide.

@@ -179,10 +179,21 @@
   .meter { height: 10px; background: var(--ink-2); border: 1px solid var(--line); border-radius: 2px; overflow: hidden; }
   .meter .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--gold-dim), var(--gold)); transition: width 1.1s cubic-bezier(.2,.7,.2,1) .4s; }
 
+  .agree { margin-top: 12px; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--acol); border: 1px solid var(--acol); display: inline-block;
+    padding: 4px 10px; border-radius: 2px; opacity: 0.9; }
+  .headline {
+    margin-top: 40px; font-family: "Fraunces", serif; font-weight: 600; font-size: clamp(24px, 4vw, 34px);
+    line-height: 1.18; letter-spacing: -0.01em; color: var(--parchment);
+  }
   .assessment {
-    margin-top: 38px; font-family: "Spectral", serif; font-size: 19px; line-height: 1.65; color: var(--parchment);
+    margin-top: 20px; font-family: "Spectral", serif; font-size: 19px; line-height: 1.65; color: var(--muted);
     border-left: 2px solid var(--gold); padding: 4px 0 4px 22px;
   }
+  .keypoints { margin: 4px 0 0 20px; padding: 0; color: var(--parchment); }
+  .keypoints li { font-family: "Spectral", serif; font-size: 16px; line-height: 1.5; margin-bottom: 8px;
+    padding-left: 8px; }
+  .keypoints li::marker { color: var(--gold); font-family: "JetBrains Mono", monospace; font-size: 13px; }
 
   .section-title { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin: 48px 0 18px; display: flex; align-items: center; gap: 14px; }
   .section-title::after { content: ""; flex: 1; height: 1px; background: var(--line); }
@@ -274,13 +285,18 @@
     abstain:       { col: "var(--abstain)", main: "INSUFFICIENT INTEL", sub: "Not enough evidence to judge" },
   };
   const LEVELS = { critical: "--crit", high: "--high", medium: "--med", low: "--low", info: "--info" };
+  const AGREEMENT = {
+    corroborating: { col: "var(--safe)",    label: "AGENTS CORROBORATE" },
+    tension:       { col: "var(--caution)", label: "PARTIAL CORROBORATION" },
+    insufficient:  { col: "var(--abstain)", label: "INSUFFICIENT TO COMPARE" },
+  };
   const SCAN_LINES = [
     "Establishing secure channel…",
-    "Querying on-chain registry [Helius]…",
-    "Pulling market intelligence [DexScreener]…",
-    "Inspecting contract authorities & holder concentration…",
+    "Dispatching Risk Guardian — verdict in progress…",
+    "Dispatching On-Chain Forensics — profiling footprint…",
+    "Querying DexScreener + Helius (market + contract)…",
     "Cross-examining evidence — every claim must cite data…",
-    "Compiling dossier…",
+    "Synthesis fusing specialist reports…",
   ];
 
   const $ = (id) => document.getElementById(id);
@@ -312,31 +328,48 @@
     $("go").textContent = s === "loading" ? "Analyzing…" : "Initiate Analysis";
   }
 
-  function renderSignals(signals) {
+  function evidenceHtml(evidence) {
+    return (evidence || []).map((e) =>
+      `<div class="ev"><span class="k">${esc(e.field)}</span><span class="eq">=</span><span class="v">${esc(e.observed_value)}</span></div>`
+    ).join("");
+  }
+
+  function renderSignals(signals, baseDelay) {
     if (!signals || !signals.length) return "";
     const cards = signals.map((s, idx) => {
       const lvl = LEVELS[s.level] || "--info";
-      const ev = (s.evidence || []).map((e) =>
-        `<div class="ev"><span class="k">${esc(e.field)}</span><span class="eq">=</span><span class="v">${esc(e.observed_value)}</span></div>`
-      ).join("");
-      return `<div class="signal reveal" style="animation-delay:${0.5 + idx * 0.12}s">
+      return `<div class="signal reveal" style="animation-delay:${baseDelay + idx * 0.1}s">
         <div class="sig-head">
           <span class="level-chip" style="background:var(${lvl})">${esc(s.level)}</span>
           <span class="sig-cat">${esc((s.category || "").replace(/_/g, " "))}</span>
         </div>
         <div class="sig-title">${esc(s.title)}</div>
         <div class="sig-detail">${esc(s.detail)}</div>
-        ${ev ? `<div class="evidence">${ev}</div>` : ""}
+        ${evidenceHtml(s.evidence) ? `<div class="evidence">${evidenceHtml(s.evidence)}</div>` : ""}
       </div>`;
     }).join("");
-    return `<div class="section-title reveal" style="animation-delay:.45s">Evidence — ${signals.length} signal${signals.length > 1 ? "s" : ""}</div>${cards}`;
+    return `<div class="section-title reveal" style="animation-delay:${baseDelay - 0.05}s">Risk signals — ${signals.length}</div>${cards}`;
+  }
+
+  function renderFindings(findings, baseDelay) {
+    if (!findings || !findings.length) return "";
+    const cards = findings.map((f, idx) =>
+      `<div class="signal reveal" style="animation-delay:${baseDelay + idx * 0.1}s">
+        <div class="sig-head"><span class="sig-cat">${esc((f.dimension || "").replace(/_/g, " "))}</span></div>
+        <div class="sig-detail" style="color:var(--parchment)">${esc(f.observation)}</div>
+        ${evidenceHtml(f.evidence) ? `<div class="evidence">${evidenceHtml(f.evidence)}</div>` : ""}
+      </div>`
+    ).join("");
+    return `<div class="section-title reveal" style="animation-delay:${baseDelay - 0.05}s">On-chain forensics — ${findings.length} finding${findings.length > 1 ? "s" : ""}</div>${cards}`;
   }
 
   function renderReport(r) {
     const v = VERDICTS[r.verdict] || VERDICTS.abstain;
+    const a = AGREEMENT[r.agreement] || AGREEMENT.insufficient;
     const conf = Math.round((r.confidence ?? 0) * 100);
     const ts = new Date().toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" });
-    const note = r.abstain_reason ? `${esc(r.summary)} — ${esc(r.abstain_reason)}` : esc(r.summary);
+    const agents = (r.contributing_agents || []).map((x) => x.replace(/_/g, " ")).join(" + ");
+    const keypts = (r.key_points || []).map((p) => `<li>${esc(p)}</li>`).join("");
 
     $("dossier").innerHTML = `
       <div class="dossier-head reveal">
@@ -346,6 +379,7 @@
           <div class="token-addr">${esc(r.token_address)}</div>
         </div>
         <div class="meta">
+          <div>Agents: <b>${esc(agents || "—")}</b></div>
           <div>Source: <b>${esc(r.data_provider)}</b></div>
           <div>Filed: <b>${esc(ts)}</b></div>
         </div>
@@ -359,13 +393,18 @@
         <div class="confidence">
           <div class="clabel"><span>Assessment Confidence</span><span class="cval">${conf}%</span></div>
           <div class="meter"><div class="fill" id="fill"></div></div>
+          <div class="agree" style="--acol:${a.col}">${a.label}</div>
         </div>
       </div>
 
-      <div class="assessment reveal" style="animation-delay:.3s">${note}</div>
-      ${renderSignals(r.signals)}
-      <div class="disclaimer reveal" style="animation-delay:.6s">
-        This assessment is a <b>risk signal, not financial advice</b>. Intelligence is derived from public
+      <div class="headline reveal" style="animation-delay:.25s">${esc(r.headline)}</div>
+      <div class="assessment reveal" style="animation-delay:.35s">${esc(r.briefing)}</div>
+      ${keypts ? `<div class="section-title reveal" style="animation-delay:.4s">Key points</div>
+        <ol class="keypoints reveal" style="animation-delay:.45s">${keypts}</ol>` : ""}
+      ${renderSignals(r.risk_signals, 0.55)}
+      ${renderFindings(r.forensic_findings, 0.7)}
+      <div class="disclaimer reveal" style="animation-delay:.8s">
+        This is a <b>risk signal, not financial advice</b>. Intelligence is derived from public
         market and on-chain data and may be incomplete. Always do your own research before transacting.
       </div>`;
 
@@ -377,7 +416,7 @@
   async function analyze(query) {
     setState("loading"); startScan();
     try {
-      const res = await fetch("/api/analyze", {
+      const res = await fetch("/api/intelligence", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),
       });
