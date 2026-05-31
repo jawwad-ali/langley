@@ -21,7 +21,7 @@
 
 ---
 
-> **📖 This README is also an interview guide.** It's written so that if someone asks *"Can you walk me through this project?"*, you can read top-to-bottom and confidently explain what it does, why, how it's built, and the decisions behind it — in plain language.
+> **📖 This README is also an interview guide.** It's written so that if someone asks *"Can you walk me through this project?"*, you can read top-to-bottom and confidently explain what it does, why, how it's built, and the decisions behind it — in plain language. For likely interview **questions and answers**, see [`INTERVIEW.md`](INTERVIEW.md).
 
 ---
 
