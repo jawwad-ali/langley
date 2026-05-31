@@ -14,14 +14,20 @@ description = "Langley — multi-agent crypto intelligence system (monorepo root
 requires-python = ">=3.12"
 # The root depends on each implemented member so `uv sync` installs them (and their
 # dependencies) into the shared workspace environment.
-dependencies = ["langley-risk", "langley-onchain", "langley-api"]
+dependencies = ["langley-risk", "langley-onchain", "langley-synthesis", "langley-api"]
 
 [tool.uv.workspace]
-members = ["packages/langley_risk", "packages/langley_onchain", "apps/api"]
+members = [
+    "packages/langley_risk",
+    "packages/langley_onchain",
+    "packages/langley_synthesis",
+    "apps/api",
+]
 
 [tool.uv.sources]
 langley-risk = { workspace = true }
 langley-onchain = { workspace = true }
+langley-synthesis = { workspace = true }
 langley-api = { workspace = true }
 
 [dependency-groups]
@@ -41,7 +47,12 @@ dev = [
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-src = ["packages/langley_risk/src", "packages/langley_onchain/src", "apps/api/src"]
+src = [
+    "packages/langley_risk/src",
+    "packages/langley_onchain/src",
+    "packages/langley_synthesis/src",
+    "apps/api/src",
+]
 
 [tool.ruff.lint]
 select = [
@@ -70,7 +81,7 @@ ignore = [
 "tests/**" = ["S101"]  # asserts are expected in tests
 
 [tool.ruff.lint.isort]
-known-first-party = ["langley_risk", "langley_onchain", "langley_api"]
+known-first-party = ["langley_risk", "langley_onchain", "langley_synthesis", "langley_api"]
 
 # ---------------------------------------------------------------------------
 # Pyright — strict type checking.
@@ -81,6 +92,7 @@ typeCheckingMode = "strict"
 include = [
     "packages/langley_risk/src", "packages/langley_risk/tests",
     "packages/langley_onchain/src", "packages/langley_onchain/tests",
+    "packages/langley_synthesis/src", "packages/langley_synthesis/tests",
     "apps/api/src", "apps/api/tests",
 ]
 reportMissingTypeStubs = false
@@ -93,7 +105,12 @@ asyncio_mode = "auto"
 # importlib mode: lets same-named test files (e.g. test_service.py) coexist across the
 # different packages' test suites without module-name collisions.
 addopts = ["--import-mode=importlib"]
-testpaths = ["packages/langley_risk/tests", "packages/langley_onchain/tests", "apps/api/tests"]
+testpaths = [
+    "packages/langley_risk/tests",
+    "packages/langley_onchain/tests",
+    "packages/langley_synthesis/tests",
+    "apps/api/tests",
+]
 markers = [
     "live: tests that hit live external APIs or the OpenAI API (skipped by default)",
 ]

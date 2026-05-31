@@ -8,6 +8,7 @@ members = [
     "langley-monorepo",
     "langley-onchain",
     "langley-risk",
+    "langley-synthesis",
 ]
 
 [[package]]
@@ -605,6 +606,7 @@ dependencies = [
     { name = "langley-api" },
     { name = "langley-onchain" },
     { name = "langley-risk" },
+    { name = "langley-synthesis" },
 ]
 
 [package.dev-dependencies]
@@ -622,6 +624,7 @@ requires-dist = [
     { name = "langley-api", editable = "apps/api" },
     { name = "langley-onchain", editable = "packages/langley_onchain" },
     { name = "langley-risk", editable = "packages/langley_risk" },
+    { name = "langley-synthesis", editable = "packages/langley_synthesis" },
 ]
 
 [package.metadata.requires-dev]
@@ -674,6 +677,25 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.0" },
     { name = "structlog", specifier = ">=24.1" },
     { name = "tenacity", specifier = ">=8.3" },
+]
+
+[[package]]
+name = "langley-synthesis"
+version = "0.1.0"
+source = { editable = "packages/langley_synthesis" }
+dependencies = [
+    { name = "langley-onchain" },
+    { name = "langley-risk" },
+    { name = "openai-agents" },
+    { name = "pydantic" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "langley-onchain", editable = "packages/langley_onchain" },
+    { name = "langley-risk", editable = "packages/langley_risk" },
+    { name = "openai-agents", specifier = ">=0.17" },
+    { name = "pydantic", specifier = ">=2.7" },
 ]
 
 [[package]]
